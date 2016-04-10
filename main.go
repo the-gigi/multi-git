@@ -17,9 +17,6 @@ func main() {
 		"Keep running after error if true")
 	flag.Parse()
 
-	//fmt.Println("command: " + *command)
-	//var argCount = len(flag.Args())
-
 	// Get managed repos from environment variables
 	root := os.Getenv("MG_ROOT")
 	if root[len(root) - 1] != '/' {
