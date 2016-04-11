@@ -35,18 +35,18 @@ func main() {
 		repos = append(repos, path)
 	}
 
-	// Build the git command
+	// Break the git command into components (needed to execute)
 	var git_components []string
 	for _, component := range strings.Split(*command, " ") {
 		git_components = append(git_components, component)
 	}
+	command_string := "git " + *command
 
 	for _, r := range repos {
 		// Go to the repo's directory
 		os.Chdir(r);
 
 		// Print the command
-		command_string := "git " + strings.Join(git_components, " ")
 		fmt.Printf("[%s] %s\n", r, command_string)
 
 		// Execute the command
