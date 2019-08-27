@@ -1,5 +1,7 @@
 # multi-git
-A little GO command-line program that manages a list of git repos and runs git commands on all repos.
+A little Go command-line program that manages a list of git repos and runs git commands on all repos.
+
+This program supports the article: [Let's Go: Command-line Programs with Golang](https://code.tutsplus.com/tutorials/lets-go-command-line-programs-with-golang--cms-26341).
 
 
 # Command-line Arguments
