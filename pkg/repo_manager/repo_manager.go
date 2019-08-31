@@ -36,7 +36,7 @@ func NewRepoManager(baseDir string, repoNames []string, ignoreErrors bool) (repo
 	}
 	for _, r := range repoNames {
 		path := baseDir + r
-		_, err := os.Stat(path + "/.git")
+		_, err = os.Stat(path + "/.git")
 		if err != nil {
 			if os.IsNotExist(err) {
 				err = errors.New(fmt.Sprintf("directory '%s' is not a git repo", path))
@@ -64,12 +64,13 @@ func (m *RepoManager) Exec(cmd string) (output map[string]string, err error) {
 	wd, _ := os.Getwd()
 	defer os.Chdir(wd)
 
+	var out []byte
 	for _, r := range m.repos {
 		// Go to the repo's directory
 		os.Chdir(r);
 
 		// Execute the command
-		out, err := exec.Command("git", components...).CombinedOutput()
+		out, err = exec.Command("git", components...).CombinedOutput()
 		// Store the result
 		output[r] = string(out)
 
