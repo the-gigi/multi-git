@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path"
 	"strings"
 
 	"github.com/the-gigi/multi-git/pkg/repo_manager"
@@ -33,7 +34,7 @@ func main() {
 
 	output, _ := repoManager.Exec(*command)
 	for repo, out := range output {
-		fmt.Printf("[%s]: %s\n", repo, command)
+		fmt.Printf("[%s]: git %s\n", path.Base(repo), *command)
 		fmt.Println(out)
 	}
 
