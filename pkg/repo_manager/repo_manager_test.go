@@ -4,16 +4,23 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	. "github.com/the-gigi/multi-git/pkg/helpers"
+	"os"
+	"path"
 )
 
 const baseDir = "/tmp/test-multi-git"
 
-var repoList = []string{"dir-1"}
+var repoList = []string{}
 
-var _ = Describe("In-memory link manager tests", func() {
+var _ = Describe("Repo manager tests", func() {
 	var err error
 	BeforeEach(func() {
 		err = CreateDir(baseDir, "dir-1", true)
+		Ω(err).Should(BeNil())
+		repoList = []string{"dir-1"}
+	})
+	AfterEach(func() {
+		err = os.RemoveAll(baseDir)
 		Ω(err).Should(BeNil())
 	})
 
@@ -26,4 +33,68 @@ var _ = Describe("In-memory link manager tests", func() {
 		_, err := NewRepoManager(baseDir, []string{}, true)
 		Ω(err).ShouldNot(BeNil())
 	})
+
+	It("Should get repo list successfully", func() {
+		rm, err := NewRepoManager(baseDir, repoList, true)
+		Ω(err).Should(BeNil())
+
+		repos := rm.GetRepos()
+		Ω(repos).Should(HaveLen(1))
+		Ω(repos[0] == path.Join(baseDir, repoList[0])).Should(BeTrue())
+	})
+
+	It("Should get repo list successfully with non-git directories", func() {
+		repoList = append(repoList, "dir-2")
+		CreateDir(baseDir, repoList[1], true)
+		CreateDir(baseDir, "not-a-git-repo", false)
+		rm, err := NewRepoManager(baseDir, repoList, true)
+		Ω(err).Should(BeNil())
+
+		repos := rm.GetRepos()
+		Ω(repos).Should(HaveLen(2))
+		Ω(repos[0] == path.Join(baseDir, repoList[0])).Should(BeTrue())
+		Ω(repos[1] == path.Join(baseDir, repoList[1])).Should(BeTrue())
+	})
+
+	It("Should get repo list successfully with non-git directories", func() {
+		repoList = append(repoList, "dir-2")
+		CreateDir(baseDir, repoList[1], true)
+		CreateDir(baseDir, "not-a-git-repo", false)
+		rm, err := NewRepoManager(baseDir, repoList, true)
+		Ω(err).Should(BeNil())
+
+		repos := rm.GetRepos()
+		Ω(repos).Should(HaveLen(2))
+		Ω(repos[0] == path.Join(baseDir, repoList[0])).Should(BeTrue())
+		Ω(repos[1] == path.Join(baseDir, repoList[1])).Should(BeTrue())
+	})
+
+	It("Should create branches successfully", func() {
+		repoList = append(repoList, "dir-2")
+		CreateDir(baseDir, repoList[1], true)
+		rm, err := NewRepoManager(baseDir, repoList, true)
+		Ω(err).Should(BeNil())
+
+		output, err := rm.Exec("checkout -b test-branch")
+		Ω(err).Should(BeNil())
+
+		for _, out := range output {
+			Ω(out).Should(Equal("Switched to a new branch 'test-branch'\n"))
+		}
+	})
+
+	It("Should commit files successfully", func() {
+		repoList = append(repoList, "dir-2")
+		CreateDir(baseDir, repoList[1], true)
+		rm, err := NewRepoManager(baseDir, repoList, true)
+		Ω(err).Should(BeNil())
+
+		output, err := rm.Exec("checkout -b test-branch")
+		Ω(err).Should(BeNil())
+
+		for _, out := range output {
+			Ω(out).Should(Equal("Switched to a new branch 'test-branch'\n"))
+		}
+	})
+
 })

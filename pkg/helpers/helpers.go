@@ -23,6 +23,7 @@ func CreateDir(baseDir string, name string, initGit bool) (err error) {
 		return
 	}
 	defer os.Chdir(currDir)
+	os.Chdir(dirName)
 	err = exec.Command("git", "init").Run()
 	return
 }
@@ -38,7 +39,3 @@ func Addfiles(baseDir string, dirName string, commit bool, filenames ... string)
 	return
 }
 
-func DeleteDir(baseDir string, dirName string) (err error) {
-	err = os.RemoveAll(path.Join(baseDir, dirName))
-	return
-}
