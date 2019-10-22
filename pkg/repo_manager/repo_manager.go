@@ -67,7 +67,7 @@ func (m *RepoManager) Exec(cmd string) (output map[string]string, err error) {
 	var out []byte
 	for _, r := range m.repos {
 		// Go to the repo's directory
-		os.Chdir(r);
+		os.Chdir(r)
 
 		// Execute the command
 		out, err = exec.Command("git", components...).CombinedOutput()

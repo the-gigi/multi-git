@@ -6,6 +6,7 @@ import (
 	. "github.com/the-gigi/multi-git/pkg/helpers"
 	"os"
 	"path"
+	"strings"
 )
 
 const baseDir = "/tmp/test-multi-git"
@@ -14,15 +15,19 @@ var repoList = []string{}
 
 var _ = Describe("Repo manager tests", func() {
 	var err error
+
+	removeAll := func() {
+		err = os.RemoveAll(baseDir)
+		Ω(err).Should(BeNil())
+	}
+
 	BeforeEach(func() {
+		removeAll()
 		err = CreateDir(baseDir, "dir-1", true)
 		Ω(err).Should(BeNil())
 		repoList = []string{"dir-1"}
 	})
-	AfterEach(func() {
-		err = os.RemoveAll(baseDir)
-		Ω(err).Should(BeNil())
-	})
+	AfterEach(removeAll)
 
 	It("Should fail with invalid base dir", func() {
 		_, err := NewRepoManager("/no-such-dir", repoList, true)
@@ -84,8 +89,6 @@ var _ = Describe("Repo manager tests", func() {
 	})
 
 	It("Should commit files successfully", func() {
-		repoList = append(repoList, "dir-2")
-		CreateDir(baseDir, repoList[1], true)
 		rm, err := NewRepoManager(baseDir, repoList, true)
 		Ω(err).Should(BeNil())
 
@@ -95,6 +98,21 @@ var _ = Describe("Repo manager tests", func() {
 		for _, out := range output {
 			Ω(out).Should(Equal("Switched to a new branch 'test-branch'\n"))
 		}
-	})
 
+		AddFiles(baseDir, repoList[0], true, "file_1.txt", "file_2.txt")
+
+		// Restore working directory after executing the command
+		wd, _ := os.Getwd()
+		defer os.Chdir(wd)
+
+		dir := path.Join(baseDir, repoList[0])
+		err = os.Chdir(dir)
+		Ω(err).Should(BeNil())
+
+		output, err = rm.Exec("log --oneline")
+		Ω(err).Should(BeNil())
+
+		ok := strings.HasSuffix(output[dir], "added some files...\n")
+		Ω(ok).Should(BeTrue())
+	})
 })
