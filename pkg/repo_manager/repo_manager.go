@@ -36,13 +36,6 @@ func NewRepoManager(baseDir string, repoNames []string, ignoreErrors bool) (repo
 	}
 	for _, r := range repoNames {
 		path := baseDir + r
-		_, err = os.Stat(path + "/.git")
-		if err != nil {
-			if os.IsNotExist(err) {
-				err = errors.New(fmt.Sprintf("directory '%s' is not a git repo", path))
-			}
-			return
-		}
 		repoManager.repos = append(repoManager.repos, path)
 	}
 
