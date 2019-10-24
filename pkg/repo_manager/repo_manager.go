@@ -49,7 +49,24 @@ func (m *RepoManager) GetRepos() []string {
 func (m *RepoManager) Exec(cmd string) (output map[string]string, err error) {
 	output = map[string]string{}
 	var components []string
+	var multiWord []string
 	for _, component := range strings.Split(cmd, " ") {
+		if strings.HasPrefix(component, "\"") {
+			multiWord = append(multiWord, component[1:])
+			continue
+		}
+
+		if len(multiWord) > 0 {
+			if !strings.HasSuffix(component, "\"") {
+				multiWord = append(multiWord, component)
+				continue
+			}
+
+			multiWord = append(multiWord, component[:len(component)-1])
+			component = strings.Join(multiWord, " ")
+			multiWord = []string{}
+		}
+
 		components = append(components, component)
 	}
 
