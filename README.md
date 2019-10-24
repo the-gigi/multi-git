@@ -16,4 +16,3 @@ The list of repos is controlled by two the environment variables:
 
 * MG_ROOT : the path to a root directory that contains all the repos
 * MG_REPOS : the names of all managed repos under MG_ROOT
-
