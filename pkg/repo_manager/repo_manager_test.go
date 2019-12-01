@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-const baseDir = "./tmp/test-multi-git"
+const baseDir = "tmp/test-multi-git"
 
 var repoList = []string{}
 
@@ -48,7 +48,9 @@ var _ = Describe("Repo manager tests", func() {
 
 			repos := rm.GetRepos()
 			Ω(repos).Should(HaveLen(1))
-			Ω(repos[0] == path.Join(baseDir, repoList[0])).Should(BeTrue())
+			actual := path.Join(baseDir, repoList[0])
+			expected := repos[0]
+			Ω(actual).Should(Equal(expected))
 		})
 
 		It("Should get repo list successfully with non-git directories", func() {
