@@ -104,7 +104,8 @@ var _ = Describe("Repo manager tests", func() {
 				Ω(out).Should(Equal("Switched to a new branch 'test-branch'\n"))
 			}
 
-			AddFiles(baseDir, repoList[0], true, "file_1.txt", "file_2.txt")
+			err = AddFiles(baseDir, repoList[0], true, "file_1.txt", "file_2.txt")
+			Ω(err).Should(BeNil())
 
 			// Restore working directory after executing the command
 			wd, _ := os.Getwd()
