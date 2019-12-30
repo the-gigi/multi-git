@@ -1,6 +1,7 @@
 package helpers
 
 import (
+	"errors"
 	"io/ioutil"
 	"os"
 	"os/exec"
@@ -54,5 +55,28 @@ func AddFiles(baseDir string, dirName string, commit bool, filenames ...string) 
 	}
 
 	err = exec.Command("git", "commit", "-m", "added some files...").Run()
+	return
+}
+
+func RunMultiGit(command string, ignoreErrors bool, mgRoot string, mgRepos string) (output string, err error) {
+	out, err := exec.Command("which", "mg").CombinedOutput()
+	if err != nil {
+		return
+	}
+
+	if len(out) == 0 {
+		err = errors.New("mg is not in the PATH")
+		return
+	}
+
+	components := []string{"--command", command}
+	if ignoreErrors {
+		components = append(components, "--ignore-errors")
+	}
+	cmd := exec.Command("mg", components...)
+	cmd.Env = os.Environ()
+	cmd.Env = append(cmd.Env, "MG_ROOT="+mgRoot, "MG_REPOS="+mgRepos)
+	out, err = cmd.CombinedOutput()
+	output = string(out)
 	return
 }
