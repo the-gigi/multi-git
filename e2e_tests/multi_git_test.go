@@ -21,8 +21,13 @@ var _ = Describe("Repo manager tests", func() {
 		Ω(err).Should(BeNil())
 	}
 
-	BeforeEach(removeAll)
-	AfterEach(removeAll)
+	BeforeEach(func() {
+		removeAll()
+		err = CreateDir(baseDir, "", false)
+		Ω(err).Should(BeNil())
+	})
+
+	AfterSuite(removeAll)
 
 	Context("Tests for empty/undefined environment failure cases", func() {
 		It("Should fail with invalid base dir", func() {
@@ -32,10 +37,10 @@ var _ = Describe("Repo manager tests", func() {
 			Ω(output).Should(HaveSuffix(suffix))
 		})
 
-		It("Should succeed with empty repo list", func() {
+		It("Should fail with empty repo list", func() {
 			output, err := RunMultiGit("status", false, baseDir, repoList)
-			Ω(err).Should(BeNil())
-			Ω(output).Should(Equal("[test-multi-git]: git status\n\n"))
+			Ω(err).ShouldNot(BeNil())
+			Ω(output).Should(ContainSubstring("repo list can't be empty"))
 		})
 	})
 
@@ -67,7 +72,7 @@ var _ = Describe("Repo manager tests", func() {
 			Ω(count).Should(Equal(2))
 		})
 
-		FIt("Should create branches successfully", func() {
+		It("Should create branches successfully", func() {
 			err = CreateDir(baseDir, "dir-1", true)
 			Ω(err).Should(BeNil())
 			err = CreateDir(baseDir, "dir-2", true)
@@ -115,7 +120,7 @@ var _ = Describe("Repo manager tests", func() {
 			})
 
 			When("ignoreErros is false", func() {
-				FIt("Should fail on first directory and bail out", func() {
+				It("Should fail on first directory and bail out", func() {
 					err = CreateDir(baseDir, "dir-1", false)
 					Ω(err).Should(BeNil())
 					err = CreateDir(baseDir, "dir-2", true)
