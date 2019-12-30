@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 )
 
@@ -19,6 +20,11 @@ func NewRepoManager(baseDir string, repoNames []string, ignoreErrors bool) (repo
 		if os.IsNotExist(err) {
 			err = errors.New(fmt.Sprintf("base dir: '%s' doesn't exist", baseDir))
 		}
+		return
+	}
+
+	baseDir, err = filepath.Abs(baseDir)
+	if err != nil {
 		return
 	}
 
@@ -77,7 +83,13 @@ func (m *RepoManager) Exec(cmd string) (output map[string]string, err error) {
 	var out []byte
 	for _, r := range m.repos {
 		// Go to the repo's directory
-		os.Chdir(r)
+		err = os.Chdir(r)
+		if err != nil {
+			if m.ignoreErrors {
+				continue
+			}
+			return
+		}
 
 		// Execute the command
 		out, err = exec.Command("git", components...).CombinedOutput()
