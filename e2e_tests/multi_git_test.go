@@ -13,7 +13,7 @@ const baseDir = "/tmp/test-multi-git"
 
 var repoList string
 
-var _ = Describe("Repo manager tests", func() {
+var _ = Describe("multi-git e2e tests", func() {
 	var err error
 
 	removeAll := func() {
@@ -119,7 +119,7 @@ var _ = Describe("Repo manager tests", func() {
 				})
 			})
 
-			When("ignoreErros is false", func() {
+			When("ignoreErrors is false", func() {
 				It("Should fail on first directory and bail out", func() {
 					err = CreateDir(baseDir, "dir-1", false)
 					Ω(err).Should(BeNil())
