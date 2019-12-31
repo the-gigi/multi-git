@@ -1,7 +1,6 @@
 package e2e_tests
 
 import (
-	"fmt"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	. "github.com/the-gigi/multi-git/pkg/helpers"
@@ -54,7 +53,6 @@ var _ = Describe("multi-git e2e tests", func() {
 
 			output, err := RunMultiGit("init", false, baseDir, repoList)
 			Ω(err).Should(BeNil())
-			fmt.Println(output)
 			count := strings.Count(output, "Initialized empty Git repository")
 			Ω(count).Should(Equal(2))
 		})
