@@ -25,18 +25,23 @@ func main() {
 		root += "/"
 	}
 
-	repoNames := strings.Split(os.Getenv("MG_REPOS"), ",")
+	repoNames := []string{}
+	if len(os.Getenv("MG_REPOS")) > 0 {
+		repoNames = strings.Split(os.Getenv("MG_REPOS"), ",")
+	}
 
 	repoManager, err := repo_manager.NewRepoManager(root, repoNames, *ignoreErros)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	output, _ := repoManager.Exec(*command)
+	output, err := repoManager.Exec(*command)
+	if err != nil {
+		fmt.Printf("command '%s' failed with error ", err)
+	}
+
 	for repo, out := range output {
 		fmt.Printf("[%s]: git %s\n", path.Base(repo), *command)
 		fmt.Println(out)
 	}
-
-	fmt.Println("Done.")
 }
