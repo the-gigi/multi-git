@@ -73,7 +73,6 @@ func init() {
 		false,
 		`will continue executing the command for all repos if ignore-errors is true
                 otherwise it will stop execution when an error occurs`)
-	rootCmd.UsageTemplate()
 }
 
 func Execute() {
