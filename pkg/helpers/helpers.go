@@ -59,21 +59,21 @@ func AddFiles(baseDir string, dirName string, commit bool, filenames ...string) 
 }
 
 func RunMultiGit(command string, ignoreErrors bool, mgRoot string, mgRepos string) (output string, err error) {
-	out, err := exec.Command("which", "mg").CombinedOutput()
+	out, err := exec.Command("which", "multi-git").CombinedOutput()
 	if err != nil {
 		return
 	}
 
 	if len(out) == 0 {
-		err = errors.New("mg is not in the PATH")
+		err = errors.New("multi-git is not in the PATH")
 		return
 	}
 
-	components := []string{"--command", command}
+	components := []string{command}
 	if ignoreErrors {
 		components = append(components, "--ignore-errors")
 	}
-	cmd := exec.Command("mg", components...)
+	cmd := exec.Command("multi-git", components...)
 	cmd.Env = os.Environ()
 	cmd.Env = append(cmd.Env, "MG_ROOT="+mgRoot, "MG_REPOS="+mgRepos)
 	out, err = cmd.CombinedOutput()

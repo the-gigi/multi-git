@@ -3,13 +3,15 @@ package repo_manager
 import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"path/filepath"
+
 	. "github.com/the-gigi/multi-git/pkg/helpers"
 	"os"
 	"path"
 	"strings"
 )
 
-const baseDir = "tmp/test-multi-git"
+var baseDir string
 
 var repoList = []string{}
 
@@ -123,3 +125,7 @@ var _ = Describe("Repo manager tests", func() {
 		})
 	})
 })
+
+func init() {
+	baseDir, _ = filepath.Abs("tmp/test-multi-git")
+}
