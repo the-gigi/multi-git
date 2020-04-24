@@ -54,14 +54,13 @@ func run(cmd *cobra.Command, args []string) {
 		log.Fatal(err)
 	}
 
-	command := strings.Join(args, " ")
-	output, err := repoManager.Exec(command)
+	output, err := repoManager.Exec(args[0])
 	if err != nil {
 		fmt.Printf("command '%s' failed with error ", err)
 	}
 
 	for repo, out := range output {
-		fmt.Printf("[%s]: git %s\n", path.Base(repo), command)
+		fmt.Printf("[%s]: git %s\n", path.Base(repo), args[0])
 		fmt.Println(out)
 	}
 }
