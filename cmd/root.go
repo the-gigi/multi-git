@@ -77,7 +77,6 @@ func init() {
 	home, err := homedir.Dir()
 	check(err)
 
-	// Search config in home directory with name ".subman" (without extension).
 	defaultConfigFilename := path.Join(home, ".config/multi-git.toml")
 	rootCmd.Flags().StringVar(&configFilename,
 		"config",
@@ -108,8 +107,6 @@ func initConfig() {
 
 	err = viper.BindEnv("repos")
 	check(err)
-
-	fmt.Println(viper.AllSettings())
 }
 
 func Execute() {
