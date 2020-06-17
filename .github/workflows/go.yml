@@ -31,6 +31,3 @@ jobs:
 
     - name: Test
       run: go test -v .
-
-    - name: Test with Ginkgo
-      run: ginkgo -r
