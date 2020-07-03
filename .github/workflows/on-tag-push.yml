@@ -11,10 +11,6 @@ jobs:
     name: Create Release
     runs-on: ubuntu-latest
 
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GOARCH: amd64
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -29,19 +25,5 @@ jobs:
           body: ${{ github.event.head_commit.message }}
           draft: false
           prerelease: false
-      - name: macOS build
-        uses: shoukoo/golang-pipeline/go1.13/release@master
-        #if: github.event.action == 'published'
-        env:
-          GOOS: darwin
-      - name: Windows build
-        uses: shoukoo/golang-pipeline/go1.13/release@master
-        #if: github.event.action == 'published'
-        env:
-          GOOS: windows
-      - name: Linux build
-        uses: shoukoo/golang-pipeline/go1.13/release@master
-        #if: github.event.action == 'published'
-        env:
-          GOOS: linux
-
+      - name: Build binaries
+        uses: sosedoff/actions/golang-build@master
