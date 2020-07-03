@@ -1,6 +1,6 @@
 module github.com/the-gigi/multi-git
 
-go 1.14
+go 1.13
 
 require (
 	github.com/blang/semver v3.5.1+incompatible
