@@ -1,6 +1,5 @@
 <a href="https://github.com/the-gigi/multi-git/actions"><img alt="GitHub Actions status" src="https://github.com/the-gigi/multi-git/workflows/Go/badge.svg"></a>
 
-
 # Multi-git
 A little Go command-line program that manages a list of git repos and runs git commands on all repos.
 
