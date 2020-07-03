@@ -2,7 +2,7 @@ name: Go
 
 on:
   push:
-    branches: [ master ]
+    branches: [ debug-test-failures-with-github-actions ]
   pull_request:
     branches: [ master ]
 
