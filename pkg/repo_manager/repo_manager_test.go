@@ -18,6 +18,9 @@ var repoList = []string{}
 var _ = Describe("Repo manager tests", func() {
 	var err error
 
+	BeforeSuite(func() {
+		Ω(ConfigureGit()).Should(Succeed())
+	})
 	removeAll := func() {
 		err = os.RemoveAll(baseDir)
 		Ω(err).Should(BeNil())
