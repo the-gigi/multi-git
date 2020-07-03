@@ -1,0 +1,25 @@
+on: release
+name: Build on release
+jobs:
+  build:
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GOARCH: amd64
+    name: Build Go
+    runs-on: ubuntu-latest
+    steps:
+    - name: osx build
+      uses: shoukoo/golang-pipeline/go1.13/release@master
+      if: github.event.action == 'published'
+      env:        
+        GOOS: darwin
+    - name: windows build
+      uses: shoukoo/golang-pipeline/go1.13/release@master
+      if: github.event.action == 'published'
+      env:
+        GOOS: windows
+    - name: linux build
+      uses: shoukoo/golang-pipeline/go1.13/release@master
+      if: github.event.action == 'published'
+      env:
+        GOOS: linux
