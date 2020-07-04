@@ -27,7 +27,7 @@ jobs:
         go get -v -t -d ./...
 
     - name: Build
-      run: go build -v -ldflags "-X 'main.GitTag=$(git describe --tags)' -X 'main.Timestamp=$(date -u)'"
+      run: go build -v
 
     - name: Test
       run: go test -v ./pkg/...
