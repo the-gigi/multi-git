@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions
+      COMPRESS_FILES: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -42,38 +43,38 @@ jobs:
         uses: actions/upload-release-asset@v1.0.2
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: .release/
+          asset_path: /github/workspace/.release/multi-git_darwin_amd64.zip
           asset_name: multi-git_darwin_amd64
           asset_content_type: application/zip
-      - name: Upload multi-git windows_386
-        id: upload_multi_git_windows_386
-        uses: actions/upload-release-asset@v1.0.2
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: .release/
-          asset_name: multi-git_windows_386
-          asset_content_type: application/zip
-      - name: Upload multi-git windows_amd64
-        id: upload_multi_git_windows_amd64
-        uses: actions/upload-release-asset@v1.0.2
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: .release/
-          asset_name: multi-git_windows_amd64
-          asset_content_type: application/zip
-      - name: Upload multi-git linux_386
-        id: upload_multi_git_linux_386
-        uses: actions/upload-release-asset@v1.0.2
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: .release/
-          asset_name: multi-git_linux_386
-          asset_content_type: application/zip
-      - name: Upload multi-git linux_amd64
-        id: upload_multi_git_linux_amd64
-        uses: actions/upload-release-asset@v1.0.2
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: .release/
-          asset_name: multi-git_linux_amd64
-          asset_content_type: application/zip
+#      - name: Upload multi-git windows_386
+#        id: upload_multi_git_windows_386
+#        uses: actions/upload-release-asset@v1.0.2
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#          asset_path: .release/
+#          asset_name: multi-git_windows_386
+#          asset_content_type: application/zip
+#      - name: Upload multi-git windows_amd64
+#        id: upload_multi_git_windows_amd64
+#        uses: actions/upload-release-asset@v1.0.2
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#          asset_path: .release/
+#          asset_name: multi-git_windows_amd64
+#          asset_content_type: application/zip
+#      - name: Upload multi-git linux_386
+#        id: upload_multi_git_linux_386
+#        uses: actions/upload-release-asset@v1.0.2
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#          asset_path: .release/
+#          asset_name: multi-git_linux_386
+#          asset_content_type: application/zip
+#      - name: Upload multi-git linux_amd64
+#        id: upload_multi_git_linux_amd64
+#        uses: actions/upload-release-asset@v1.0.2
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#          asset_path: .release/
+#          asset_name: multi-git_linux_amd64
+#          asset_content_type: application/zip
