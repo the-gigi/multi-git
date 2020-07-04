@@ -25,7 +25,7 @@ func main() {
 			log.Fatalf("Binary update failed: %v", err)
 			return
 		} else {
-			fmt.Println("Current version is:", latest)
+			fmt.Println("Current version is:", latest.Version)
 		}
 	}
 
