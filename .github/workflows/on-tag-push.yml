@@ -35,7 +35,7 @@ jobs:
           # which include a `upload_url`. See this blog post for more info:
           # https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: .release/
+          asset_path: .release/multi-git_darwin_386.zip
           asset_name: multi-git_darwin_386
           asset_content_type: application/zip
       - name: Upload multi-git darwin_amd64
@@ -43,7 +43,7 @@ jobs:
         uses: actions/upload-release-asset@v1.0.2
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: /github/workspace/.release/multi-git_darwin_amd64.zip
+          asset_path: .release/multi-git_darwin_amd64.zip
           asset_name: multi-git_darwin_amd64
           asset_content_type: application/zip
 #      - name: Upload multi-git windows_386
