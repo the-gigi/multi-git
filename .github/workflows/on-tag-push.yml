@@ -13,6 +13,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions
       COMPRESS_FILES: true
+      BUILD_FLAGS: -ldflags "-X 'main.GitTag=$(git describe --tags)' -X 'main.Timestamp=$(date -u)'"
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -26,7 +27,7 @@ jobs:
           draft: false
           prerelease: false
       - name: Build binaries
-        uses: sosedoff/actions/golang-build@master
+        uses: the-gigi/actions/golang-build@master
       - name: Upload multi-git darwin_386
         id: upload_multi_git_darwin_386
         uses: actions/upload-release-asset@v1
