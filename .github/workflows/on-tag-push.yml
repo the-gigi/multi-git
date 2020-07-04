@@ -27,53 +27,53 @@ jobs:
       - name: Build binaries
         uses: sosedoff/actions/golang-build@master
       - name: Upload multi-git darwin_386
-          id: upload_multi_git_darwin_386
-          uses: actions/upload-release-asset@v1
-          with:
-            # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object,
-            # which include a `upload_url`. See this blog post for more info:
-            # https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-            upload_url: ${{ steps.create_release.outputs.upload_url }}
-            asset_path: .release/
-            asset_name: multi-git_darwin_386
-            asset_content_type: application/zip
+        id: upload_multi_git_darwin_386
+        uses: actions/upload-release-asset@v1
+        with:
+          # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object,
+          # which include a `upload_url`. See this blog post for more info:
+          # https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: .release/
+          asset_name: multi-git_darwin_386
+          asset_content_type: application/zip
       - name: Upload multi-git darwin_amd64
-          id: upload_multi_git_darwin_amd64
-          uses: actions/upload-release-asset@v1
-          with:
-            upload_url: ${{ steps.create_release.outputs.upload_url }}
-            asset_path: .release/
-            asset_name: multi-git_darwin_amd64
-            asset_content_type: application/zip
+        id: upload_multi_git_darwin_amd64
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: .release/
+          asset_name: multi-git_darwin_amd64
+          asset_content_type: application/zip
       - name: Upload multi-git windows_386
-          id: upload_multi_git_windows_386
-          uses: actions/upload-release-asset@v1
-          with:
-            upload_url: ${{ steps.create_release.outputs.upload_url }}
-            asset_path: .release/
-            asset_name: multi-git_windows_386
-            asset_content_type: application/zip
+        id: upload_multi_git_windows_386
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: .release/
+          asset_name: multi-git_windows_386
+          asset_content_type: application/zip
       - name: Upload multi-git windows_amd64
-          id: upload_multi_git_windows_amd64
-          uses: actions/upload-release-asset@v1
-          with:
-            upload_url: ${{ steps.create_release.outputs.upload_url }}
-            asset_path: .release/
-            asset_name: multi-git_windows_amd64
-            asset_content_type: application/zip
+        id: upload_multi_git_windows_amd64
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: .release/
+          asset_name: multi-git_windows_amd64
+          asset_content_type: application/zip
       - name: Upload multi-git linux_386
-          id: upload_multi_git_linux_386
-          uses: actions/upload-release-asset@v1
-          with:
-            upload_url: ${{ steps.create_release.outputs.upload_url }}
-            asset_path: .release/
-            asset_name: multi-git_linux_386
-            asset_content_type: application/zip
+        id: upload_multi_git_linux_386
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: .release/
+          asset_name: multi-git_linux_386
+          asset_content_type: application/zip
       - name: Upload multi-git linux_amd64
-          id: upload_multi_git_linux_amd64
-          uses: actions/upload-release-asset@v1
-          with:
-            upload_url: ${{ steps.create_release.outputs.upload_url }}
-            asset_path: .release/
-            asset_name: multi-git_linux_amd64
-            asset_content_type: application/zip
+        id: upload_multi_git_linux_amd64
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: .release/
+          asset_name: multi-git_linux_amd64
+          asset_content_type: application/zip
