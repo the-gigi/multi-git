@@ -13,7 +13,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions
       COMPRESS_FILES: true
-      BUILD_FLAGS: -ldflags "-X 'main.GitTag=$(git describe --tags)' -X 'main.Timestamp=$(date -u)'"
+      BUILD_FLAGS: -v -ldflags "-X 'main.GitTag=$(git describe --tags)' -X 'main.Timestamp=$(date -u)'"
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
