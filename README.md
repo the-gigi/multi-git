@@ -34,9 +34,22 @@ Flags:
                         otherwise it will stop execution when an error occurs
 ```
 
+# Config file
+
+The multi-git config file looks like:
+
+```
+root = "~/git"
+repos = "repo-1,repo-2"
+```
+
+The file is required. You can override the values with the environment variables per run.
+
+If you specify the `--config <config file>` multi-git will read that file otherwise it will expect it to be in the default location: `$HOME/multi-git.toml`.
+
 # Makefile
 
-multi-git has a Makefile that lets you build, install, test, create docker image and push the docker image to DockerHub. Type `make` to see this help screen:
+Multi-git has a Makefile that lets you build, install, test, create docker image and push the docker image to DockerHub. Type `make` to see this help screen:
 
 ```
 $ make
