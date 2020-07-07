@@ -1,9 +1,10 @@
 package e2e_tests
 
 import (
+	"testing"
+
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"testing"
 )
 
 func TestMultiGit(t *testing.T) {

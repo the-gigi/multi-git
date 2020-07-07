@@ -1,5 +1,5 @@
 FROM golang:1.14 AS builder
-  WORKDIR /build
+WORKDIR /build
 ADD main.go main.go
 ADD go.mod go.mod
 ADD cmd cmd
