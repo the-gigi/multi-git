@@ -28,8 +28,8 @@ build:
 
 ## Install multi-git into /usr/local/bin (avoid standard go install)
 install: build
-	mv multi-git_$$(go env GOOS)_$$(go env GOARCH) /usr/local/bin/multi-git
-
+	mv multi-git_$$(go env GOOS)_$$(go env GOARCH) /usr/local/bin/multi-git_$$(go env GOOS)_$$(go env GOARCH)
+	ln -s /usr/local/bin/multi-git_$$(go env GOOS)_$$(go env GOARCH) /usr/local/bin/multi-git
 ## Run only the unit tests
 unit-tests: build
 	go test ./pkg/... -v
