@@ -24,13 +24,17 @@ help:
 
 ## Build multi-git and inject the git tag and build time to variables in main
 build:
-	go build -ldflags "-X 'main.gitTag=$$(git describe --tags)' -X 'main.buildTimestamp=$$(date -u)'" -o multi-git_$$(go env GOOS)_$$(go env GOARCH)
+	go build -ldflags "-X 'main.gitTag=$$(git describe --tags)' \
+                       -X 'main.buildTimestamp=$$(date -u)'" \
+                       -o multi-git_$$(go env GOOS)_$$(go env GOARCH)
 
 ## Install multi-git into /usr/local/bin (avoid standard go install)
 install: build
-	mv multi-git_$$(go env GOOS)_$$(go env GOARCH) /usr/local/bin/multi-git_$$(go env GOOS)_$$(go env GOARCH)
+	mv multi-git_$$(go env GOOS)_$$(go env GOARCH) \
+       /usr/local/bin/multi-git_$$(go env GOOS)_$$(go env GOARCH)
 	rm /usr/local/bin/multi-git
-	ln -s /usr/local/bin/multi-git_$$(go env GOOS)_$$(go env GOARCH) /usr/local/bin/multi-git
+	ln -s /usr/local/bin/multi-git_$$(go env GOOS)_$$(go env GOARCH) \
+       /usr/local/bin/multi-git
 
 ## Run only the unit tests
 unit-tests: build

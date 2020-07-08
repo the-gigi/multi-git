@@ -10,7 +10,7 @@ import (
 	"github.com/the-gigi/multi-git/cmd"
 )
 
-const (
+var (
 	version = "v0.9.4"
 )
 
@@ -21,6 +21,7 @@ var (
 
 func main() {
 	if gitTag != "" {
+		version = gitTag
 		fmt.Println("Git tag:", gitTag)
 	}
 
