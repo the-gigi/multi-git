@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	version = "v0.9.3"
+	version = "v0.9.4"
 )
 
 var (
@@ -21,14 +21,14 @@ var (
 
 func main() {
 	if gitTag != "" {
-		fmt.Println("git tag:", gitTag)
+		fmt.Println("Git tag:", gitTag)
 	}
 
 	if buildTimestamp != "" {
-		fmt.Println("built at:", buildTimestamp)
+		fmt.Println("Built at:", buildTimestamp)
 	}
 
-	fmt.Println("current version is: ", version)
+	fmt.Println("Current version is: ", version)
 
 	v := semver.MustParse(version[1:])
 	latest, err := selfupdate.UpdateSelf(v, "the-gigi/multi-git")
