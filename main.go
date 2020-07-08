@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	version = "v0.9.4"
+	version = "v1.0.0"
 )
 
 var (
@@ -38,7 +38,7 @@ func main() {
 		return
 	} else {
 		if latest.Version.String() != version {
-			fmt.Println("Updated version to:", latest.Version)
+			fmt.Printf("Updated version to: v%v\n", latest.Version)
 		}
 	}
 
